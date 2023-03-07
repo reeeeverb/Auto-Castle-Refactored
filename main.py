@@ -9,6 +9,7 @@ from kivy.graphics import Rectangle
 from kivy.uix.button import Button
 from kivy.lang.builder import Builder
 import backend
+import piece
 
 class ChessGame(Widget):
     s_width = NumericProperty(Window.width)
@@ -20,8 +21,21 @@ class ChessApp(App):
         return ChessGame()
 
 class Chessboard(Widget):
-    gui_board = backend.board()
-    gui_board.reset_board()
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.p_size = ObjectProperty(0)
+
+    def on_touch_down(self, touch):
+        gui_board = backend.board()
+        gui_board.reset_board()
+        test = piece.Knight(p_size=self.p_size)
+        self.add_widget(test)
+        test.set(2,2)
+
+    def sync(self,board):
+        test = Knight(p_size=self.p_size)
+        self.add_widget(self)
+        test.set(2,2)
 
 if __name__ == '__main__':
     ChessApp().run()
