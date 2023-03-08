@@ -33,3 +33,5 @@ new_board_b_color = ["BLACK","BLACK","BLACK","BLACK","BLACK","BLACK","BLACK","BL
                      "EMPTY","EMPTY","EMPTY","EMPTY","EMPTY","EMPTY","EMPTY","EMPTY",\
                      "WHITE","WHITE","WHITE","WHITE","WHITE","WHITE","WHITE","WHITE",\
                      "WHITE","WHITE","WHITE","WHITE","WHITE","WHITE","WHITE","WHITE"]
+
+

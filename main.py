@@ -24,13 +24,15 @@ class Chessboard(Widget):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.p_size = ObjectProperty(0)
+        pos = ObjectProperty()
 
     def on_touch_down(self, touch):
         gui_board = backend.board()
         gui_board.reset_board()
-        test = piece.Knight(p_size=self.p_size)
+        test = piece.Knight(p_size=self.p_size,offset_x=self.pos[0],offset_y=self.pos[1])
         self.add_widget(test)
         test.set(2,2)
+        print("hit")
 
     def sync(self,board):
         test = Knight(p_size=self.p_size)
