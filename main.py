@@ -25,19 +25,41 @@ class Chessboard(Widget):
         super().__init__(**kwargs)
         self.p_size = ObjectProperty(0)
         pos = ObjectProperty()
+        Window.bind(on_resize=self.on_window_resize)
+        self.current_board = None
+
+    def on_window_resize(self, window, width, height):
+        if self.current_board != None:
+            self.sync(self.current_board)
+
+    def add_piece(self,name,position):
+        if name == "EMPTY":
+            return
+        elif name == "KNIGHT":
+            temp = piece.Knight(p_size=self.p_size,offset_x=self.pos[0],offset_y=self.pos[1])
+        elif name == "BISHOP":
+            temp = piece.Bishop(p_size=self.p_size,offset_x=self.pos[0],offset_y=self.pos[1])
+        elif name == "ROOK":
+            temp = piece.Rook(p_size=self.p_size,offset_x=self.pos[0],offset_y=self.pos[1])
+        elif name == "QUEEN":
+            temp = piece.Queen(p_size=self.p_size,offset_x=self.pos[0],offset_y=self.pos[1])
+        elif name == "KING":
+            temp = piece.King(p_size=self.p_size,offset_x=self.pos[0],offset_y=self.pos[1])
+        elif name == "PAWN":
+            temp = piece.Pawn(p_size=self.p_size,offset_x=self.pos[0],offset_y=self.pos[1])
+        self.add_widget(temp)
+        temp.set(position)
 
     def on_touch_down(self, touch):
         gui_board = backend.board()
         gui_board.reset_board()
-        test = piece.Knight(p_size=self.p_size,offset_x=self.pos[0],offset_y=self.pos[1])
-        self.add_widget(test)
-        test.set(2,2)
-        print("hit")
+        self.sync(gui_board)
 
     def sync(self,board):
-        test = Knight(p_size=self.p_size)
-        self.add_widget(self)
-        test.set(2,2)
+        self.current_board = board
+        self.clear_widgets()
+        for square, piece in enumerate(board.piece_arr):
+            self.add_piece(piece,square)
 
 if __name__ == '__main__':
     ChessApp().run()
