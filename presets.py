@@ -1,3 +1,5 @@
+import math
+
 new_board_w_piece = ["ROOK","KNIGHT","BISHOP","QUEEN","KING","BISHOP","KNIGHT","ROOK",\
                     "PAWN","PAWN","PAWN","PAWN","PAWN","PAWN","PAWN","PAWN",\
                     "EMPTY","EMPTY","EMPTY","EMPTY","EMPTY","EMPTY","EMPTY","EMPTY",\
@@ -34,4 +36,6 @@ new_board_b_color = ["BLACK","BLACK","BLACK","BLACK","BLACK","BLACK","BLACK","BL
                      "WHITE","WHITE","WHITE","WHITE","WHITE","WHITE","WHITE","WHITE",\
                      "WHITE","WHITE","WHITE","WHITE","WHITE","WHITE","WHITE","WHITE"]
 
-
+def square_pos(x,y,width):
+    square_size = width/8
+    return (math.trunc(y/square_size),math.trunc(x/square_size),math.trunc(y/square_size)*8+math.trunc(x/square_size))
