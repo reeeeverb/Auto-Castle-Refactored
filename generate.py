@@ -1,12 +1,40 @@
-import main
+from main import forward, move
 
 def moves(square,piece_arr,color_arr):
+    print(forward)
     piece = piece_arr[square]
     color = color_arr[square]
     row = square//8
     col = square%8
     out = []
-    if piece == "KNIGHT":
+    if piece == "PAWN":
+        if color == forward:
+            if piece_arr[square+8] == "EMPTY":
+                out.append(square+8)
+                if row < 6 and piece_arr[square+16] == "EMPTY" and row == 1:
+                    out.append(square+16)
+            if col != 0 and piece_arr[square+7] != "EMPTY" and color != color_arr[square+7]:
+                out.append(square+7)
+            if col != 7 and piece_arr[square+9] != "EMPTY" and color != color_arr[square+9]:
+                out.append(square+9)
+            if col != 7 and piece_arr[square-1] == "PAWN" and self.names[square-1].en_passantable_move == move and color != color_arr[square-1]:
+                out.append(square+7)
+            if col != 7 and piece_arr[square+1] == "PAWN" and self.names[square+1].en_passantable_move == move and color != color_arr[square+1]:
+                out.append(square+9)
+        else:
+            if piece_arr[square-8] == "EMPTY":
+                out.append(square-8)
+                if row > 1 and piece_arr[square-16] == "EMPTY" and row == 6:
+                    out.append(square-16)
+            if col != 7 and piece_arr[square-7] != "EMPTY" and color != color_arr[square-7]:
+                out.append(square-7)
+            if col != 0 and piece_arr[square-9] != "EMPTY" and color != color_arr[square-9]:
+                out.append(square-9)
+            if col != 7 and piece_arr[square-1] == "PAWN" and self.names[square-1].en_passantable_move == move and color != color_arr[square-1]:
+                out.append(square-9)
+            if col != 7 and piece_arr[square+1] == "PAWN" and self.names[square+1].en_passantable_move == move and color != color_arr[square+1]:
+                out.append(square-7)
+    elif piece == "KNIGHT":
         if col > 0 and row < 6 and color_arr[square+15] != color:
             out.append(square+15)
         if col < 7 and row < 6 and color_arr[square+17] != color:

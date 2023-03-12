@@ -10,6 +10,10 @@ from kivy.uix.button import Button
 from kivy.lang.builder import Builder
 import backend, presets, piece, generate
 
+forward = "WHITE"
+move = 0
+en_passantable = []
+
 class ChessGame(Widget):
     s_width = NumericProperty(Window.width)
     s_height = NumericProperty(Window.height)
@@ -29,6 +33,7 @@ class Chessboard(Widget):
         self.down_square = None
         self.up_square = None
         self.marker_list = []
+        enpassantable_move = [-1,-1]
 
     def on_window_resize(self, window, width, height):
         if self.current_board != None:
