@@ -10,8 +10,6 @@ from kivy.uix.button import Button
 from kivy.lang.builder import Builder
 import backend, presets, piece, generate
 
-en_passantable = []
-
 class ChessGame(Widget):
     s_width = NumericProperty(Window.width)
     s_height = NumericProperty(Window.height)

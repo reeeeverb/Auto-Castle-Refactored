@@ -10,6 +10,12 @@ def moves(square,board):
     out = []
     if piece == "PAWN":
         if color == forward:
+            if color == "BLACK":
+                if board.w_en_passantable == square+7 or board.w_en_passantable == square+9:
+                    out.append(board.w_en_passantable)
+            if color == "WHITE":
+                if board.b_en_passantable == square+7 or board.b_en_passantable == square+9:
+                    out.append(board.b_en_passantable)
             if piece_arr[square+8] == "EMPTY":
                 out.append(square+8)
                 if row < 6 and piece_arr[square+16] == "EMPTY" and row == 1:
@@ -19,6 +25,13 @@ def moves(square,board):
             if col != 7 and piece_arr[square+9] != "EMPTY" and color != color_arr[square+9]:
                 out.append(square+9)
         else:
+            if color == "BLACK":
+                print(board.w_en_passantable)
+                if board.w_en_passantable == square-7 or board.w_en_passantable == square-9:
+                    out.append(board.w_en_passantable)
+            if color == "WHITE":
+                if board.b_en_passantable == square-7 or board.b_en_passantable == square-9:
+                    out.append(board.b_en_passantable)
             if piece_arr[square-8] == "EMPTY":
                 out.append(square-8)
                 if row > 1 and piece_arr[square-16] == "EMPTY" and row == 6:
