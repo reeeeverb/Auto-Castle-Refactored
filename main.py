@@ -10,8 +10,6 @@ from kivy.uix.button import Button
 from kivy.lang.builder import Builder
 import backend, presets, piece, generate
 
-forward = "WHITE"
-move = 0
 en_passantable = []
 
 class ChessGame(Widget):
@@ -39,8 +37,8 @@ class Chessboard(Widget):
         if self.current_board != None:
             self.sync(self.current_board)
 
-    def show(self,square,piece_arr,color_arr):
-        for spot in generate.moves(square, piece_arr, color_arr):
+    def show(self,square,board):
+        for spot in generate.moves(square[2], board):
             self.add_marker(spot)
 
     def add_marker(self,spot):
@@ -92,7 +90,10 @@ class Chessboard(Widget):
         ypos = touch.pos[1]-self.pos[1]
         self.up_square = (presets.square_pos(xpos,ypos,self.width))
         if self.up_square == self.down_square:
-            self.show(self.up_square[2],self.current_board.piece_arr,self.current_board.color_arr)
+            self.show(self.up_square,self.current_board)
+        elif self.up_square != None and self.down_square != None:
+            self.current_board.move_piece(self.down_square[2],self.up_square[2])
+            self.sync(self.current_board)
 
     def sync(self,board):
         self.current_board = board

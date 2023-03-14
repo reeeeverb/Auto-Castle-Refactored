@@ -1,6 +1,6 @@
 import math
 
-new_board_w_piece = ["ROOK","KNIGHT","BISHOP","QUEEN","KING","BISHOP","KNIGHT","ROOK",\
+new_board_w_piece = ["ROOK","KNIGHT","BISHOP","KING","QUEEN","BISHOP","KNIGHT","ROOK",\
                     "PAWN","PAWN","PAWN","PAWN","PAWN","PAWN","PAWN","PAWN",\
                     "EMPTY","EMPTY","EMPTY","EMPTY","EMPTY","EMPTY","EMPTY","EMPTY",\
                     "EMPTY","EMPTY","EMPTY","EMPTY","EMPTY","EMPTY","EMPTY","EMPTY",\

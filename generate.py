@@ -1,7 +1,8 @@
-from main import forward, move
-
-def moves(square,piece_arr,color_arr):
-    print(forward)
+def moves(square,board):
+    piece_arr = board.piece_arr
+    color_arr = board.color_arr
+    forward = board.forward
+    move = board.move
     piece = piece_arr[square]
     color = color_arr[square]
     row = square//8
@@ -17,10 +18,6 @@ def moves(square,piece_arr,color_arr):
                 out.append(square+7)
             if col != 7 and piece_arr[square+9] != "EMPTY" and color != color_arr[square+9]:
                 out.append(square+9)
-            if col != 7 and piece_arr[square-1] == "PAWN" and self.names[square-1].en_passantable_move == move and color != color_arr[square-1]:
-                out.append(square+7)
-            if col != 7 and piece_arr[square+1] == "PAWN" and self.names[square+1].en_passantable_move == move and color != color_arr[square+1]:
-                out.append(square+9)
         else:
             if piece_arr[square-8] == "EMPTY":
                 out.append(square-8)
@@ -30,10 +27,6 @@ def moves(square,piece_arr,color_arr):
                 out.append(square-7)
             if col != 0 and piece_arr[square-9] != "EMPTY" and color != color_arr[square-9]:
                 out.append(square-9)
-            if col != 7 and piece_arr[square-1] == "PAWN" and self.names[square-1].en_passantable_move == move and color != color_arr[square-1]:
-                out.append(square-9)
-            if col != 7 and piece_arr[square+1] == "PAWN" and self.names[square+1].en_passantable_move == move and color != color_arr[square+1]:
-                out.append(square-7)
     elif piece == "KNIGHT":
         if col > 0 and row < 6 and color_arr[square+15] != color:
             out.append(square+15)
@@ -104,4 +97,54 @@ def moves(square,piece_arr,color_arr):
             t_square1 += 1
             t_square0 -= 1
             t_tracker -= 7
+    if piece == "ROOK" or piece == "QUEEN":
+            t_square1 = col-1
+            t_square0 = row
+            t_tracker = square-1
+            dont_stop = True
+            while t_square1 >= 0 and t_square0 >= 0 and dont_stop:
+                if color_arr[t_tracker] == color:
+                    break
+                elif color_arr[t_tracker] != color and color_arr[t_tracker] != "EMPTY":
+                    dont_stop = False
+                out.append(t_tracker)
+                t_square1 -= 1
+                t_tracker -= 1
+            t_square1 = col+1
+            t_square0 = row
+            t_tracker = square+1
+            dont_stop = True
+            while t_square1 <= 7 and t_square0 <= 7 and dont_stop:
+                if color_arr[t_tracker] == color:
+                    break
+                elif color_arr[t_tracker] != color and color_arr[t_tracker] != "EMPTY":
+                    dont_stop = False
+                out.append(t_tracker)
+                t_square1 += 1
+                t_tracker += 1
+            t_square1 = col
+            t_square0 = row-1
+            t_tracker = square-8
+            dont_stop = True
+            while t_square1 >= 0 and t_square0 >= 0 and dont_stop:
+                if color_arr[t_tracker] == color:
+                    break
+                elif color_arr[t_tracker] != color and color_arr[t_tracker] != "EMPTY":
+                    dont_stop = False
+                out.append(t_tracker)
+                t_square0 -= 1
+                t_tracker -= 8
+            t_square1 = col
+            t_square0 = row+1
+            t_tracker = square+8
+            dont_stop = True
+            while t_square1 <= 7 and t_square0 <= 7 and dont_stop:
+                if color_arr[t_tracker] == color:
+                    break
+                elif color_arr[t_tracker] != color and color_arr[t_tracker] != "EMPTY":
+                    dont_stop = False
+                out.append(t_tracker)
+                t_square0 += 1
+                t_tracker += 8
+
     return out
