@@ -2,6 +2,7 @@
 
 ## Chessboard TODO:
 - Recreate to allow for programmatic adding of widgets(pieces)
+  - Just king now 
 - Implement pawn promotion
   - need a fancy lil mini gui
 - Check, checkmate, etc

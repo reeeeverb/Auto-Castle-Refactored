@@ -26,7 +26,6 @@ def moves(square,board):
                 out.append(square+9)
         else:
             if color == "BLACK":
-                print(square)
                 if board.w_en_passantable == square-7 or board.w_en_passantable == square-9:
                     out.append(board.w_en_passantable)
             if color == "WHITE":
@@ -159,5 +158,21 @@ def moves(square,board):
                 out.append(t_tracker)
                 t_square0 += 1
                 t_tracker += 8
-
+    if piece == "KING":
+            if col < 7 and color_arr[square+1] != color:
+                out.append(square+1)
+            if col > 0 and color_arr[square-1] != color:
+                out.append(square-1)
+            if row < 7 and col > 0 and color_arr[square+7] != color:
+                out.append(square+7)
+            if row < 7 and color_arr[square+8] != color:
+                out.append(square+8)
+            if row < 7 and col < 7 and color_arr[square+9] != color:
+                out.append(square+9)
+            if row > 0 and col < 7 and color_arr[square-7] != color:
+                out.append(square-7)
+            if row > 0 and color_arr[square-8] != color:
+                out.append(square-8)
+            if row > 0 and col > 0 and color_arr[square-9] != color:
+                out.append(square-9)
     return out
