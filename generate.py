@@ -26,7 +26,7 @@ def moves(square,board):
                 out.append(square+9)
         else:
             if color == "BLACK":
-                print(board.w_en_passantable)
+                print(square)
                 if board.w_en_passantable == square-7 or board.w_en_passantable == square-9:
                     out.append(board.w_en_passantable)
             if color == "WHITE":

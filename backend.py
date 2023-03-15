@@ -63,8 +63,7 @@ class board():
                 if color == "WHITE":
                     self.w_en_passantable = down_square-8
                 if color == "BLACK":
-                    self.b_en_passantable = up_square-8
-                
+                    self.b_en_passantable = up_square+8
         self.color_arr[down_square] = "EMPTY"
         self.piece_arr[down_square] = "EMPTY"
         self.color_arr[up_square] = color
