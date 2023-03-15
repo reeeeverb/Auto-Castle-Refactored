@@ -9,6 +9,8 @@ class board():
     current_move = "WHITE"
     w_en_passantable = None
     b_en_passantable = None
+    w_en_passantable_s = None
+    b_en_passantable_s = None
     w_queen_castle = True
     w_king_castle = True
     b_queen_castle = True
@@ -33,8 +35,12 @@ class board():
             return;
         if up_square not in generate.moves(down_square,self):
             return
-        w_en_passantable = None
-        b_en_passantable = None
+        t_w_en_passantable = self.w_en_passantable
+        t_b_en_passantable = self.b_en_passantable
+        t_w_en_passantable_s = self.w_en_passantable_s
+        t_b_en_passantable_s = self.b_en_passantable_s
+        self.w_en_passantable = None
+        self.b_en_passantable = None
         if piece == "KING":
             if color == "WHITE":
                 w_queen_castle = False
@@ -57,13 +63,24 @@ class board():
             if up_square - down_square == 16:
                 if color == "WHITE":
                     self.w_en_passantable = down_square+8
+                    self.w_en_passantable_s = up_square
                 if color == "BLACK":
                     self.b_en_passantable = up_square+8
+                    self.b_en_passantable_s = up_square
             elif down_square - up_square == 16:
                 if color == "WHITE":
                     self.w_en_passantable = down_square-8
+                    self.w_en_passantable_s = up_square
                 if color == "BLACK":
                     self.b_en_passantable = up_square+8
+                    self.b_en_passantable_s = up_square
+            elif abs(up_square - down_square) != 8:
+                if color == "WHITE" and up_square == t_b_en_passantable:
+                    self.color_arr[t_b_en_passantable_s] = "EMPTY"
+                    self.piece_arr[t_b_en_passantable_s] = "EMPTY"
+                elif color == "BLACK" and up_square == t_w_en_passantable:
+                    self.color_arr[t_w_en_passantable_s] = "EMPTY"
+                    self.piece_arr[t_w_en_passantable_s] = "EMPTY"
         self.color_arr[down_square] = "EMPTY"
         self.piece_arr[down_square] = "EMPTY"
         self.color_arr[up_square] = color
