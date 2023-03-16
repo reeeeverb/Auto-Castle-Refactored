@@ -30,6 +30,10 @@ class board():
     def set_board(self,loc,col):
         self.color_arr = col
         self.piece_arr = loc
+
+    def set_piece(self,square,piece,color):
+        self.color_arr[square] = color
+        self.piece_arr[square] = piece
     
     def move_piece(self,down_square,up_square):
         t_color_arr = copy.copy(self.color_arr)
@@ -61,6 +65,7 @@ class board():
         t_b_en_passantable_s = self.b_en_passantable_s
         self.w_en_passantable = None
         self.b_en_passantable = None
+        promotion = False
         if piece == "KING":
             if color == "WHITE":
                 self.w_king_location = up_square
@@ -103,6 +108,8 @@ class board():
                 elif color == "BLACK" and up_square == t_w_en_passantable:
                     self.color_arr[t_w_en_passantable_s] = "EMPTY"
                     self.piece_arr[t_w_en_passantable_s] = "EMPTY"
+            if up_square//8 == 0 or up_square//8 == 7:
+                promotion = True
         self.color_arr[down_square] = "EMPTY"
         self.piece_arr[down_square] = "EMPTY"
         self.color_arr[up_square] = color
@@ -140,3 +147,5 @@ class board():
         else:
             self.move += 1
             self.current_move = "WHITE" if color == "BLACK" else "BLACK"
+            if promotion:
+                return up_square

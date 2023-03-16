@@ -177,7 +177,7 @@ def moves(square,board):
                 out.append(square-9)
     return out
 
-def in_check(square,board):
+def in_check(square,board,detail=False):
         color = board.color_arr
         piece = board.piece_arr
 

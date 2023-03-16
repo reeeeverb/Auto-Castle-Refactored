@@ -1,5 +1,8 @@
 import math
 from kivy.app import App
+from kivy.uix.popup import Popup
+from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.label import Label
 from kivy.uix.widget import Widget
 from kivy.properties import NumericProperty, ReferenceListProperty, ObjectProperty
 from kivy.vector import Vector
@@ -90,8 +93,27 @@ class Chessboard(Widget):
         if self.up_square == self.down_square:
             self.show(self.up_square,self.current_board)
         elif self.up_square != None and self.down_square != None:
-            self.current_board.move_piece(self.down_square[2],self.up_square[2])
+            promote_square = self.current_board.move_piece(self.down_square[2],self.up_square[2])
             self.sync(self.current_board)
+            if promote_square != None:
+                content = BoxLayout(orientation = 'vertical')
+                embedded_content = BoxLayout(orientation = 'horizontal')
+                embedded_content1 = BoxLayout(orientation = 'horizontal')
+                image1 = Image(source='chess-pieces/white/knight1.png')
+                image2 = Image(source='chess-pieces/white/bishop1.png')
+                image3 = Image(source='chess-pieces/white/rook1.png')
+                image4 = Image(source='chess-pieces/white/queen1.png')
+                embedded_content.add_widget(image1)
+                embedded_content.add_widget(image2)
+                content.orientation = "vertical"
+                embedded_content1.add_widget(image3)
+                embedded_content1.add_widget(image4)
+                content.add_widget(embedded_content)
+                content.add_widget(embedded_content1)
+                popup = Popup(title = "Promotion",content=content,
+                        size_hint=(None, None), size=(200, 200))
+                popup.open()
+                print("promotion detected")
 
     def sync(self,board):
         self.current_board = board
