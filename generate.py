@@ -159,6 +159,14 @@ def moves(square,board):
                 t_square0 += 1
                 t_tracker += 8
     if piece == "KING":
+            if color == "WHITE":
+                if board.w_queen_castle:
+                    if color_arr[4] == "EMPTY" and color_arr[5] == "EMPTY" and color_arr[6] == "EMPTY":
+                        out.append(5)
+                if board.w_king_castle:
+                    if color_arr[1] == "EMPTY" and color_arr[2] == "EMPTY":
+                        out.append(1)
+
             if col < 7 and color_arr[square+1] != color:
                 out.append(square+1)
             if col > 0 and color_arr[square-1] != color:

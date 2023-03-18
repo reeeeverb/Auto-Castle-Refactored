@@ -68,6 +68,8 @@ class board():
         promotion = False
         if piece == "KING":
             if color == "WHITE":
+                if up_square - down_square > 1:
+                    self.set_piece()
                 self.w_king_location = up_square
                 self.w_queen_castle = False
                 self.w_king_castle = False
