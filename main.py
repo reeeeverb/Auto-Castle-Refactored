@@ -96,24 +96,36 @@ class Chessboard(Widget):
             promote_square = self.current_board.move_piece(self.down_square[2],self.up_square[2])
             self.sync(self.current_board)
             if promote_square != None:
-                content = BoxLayout(orientation = 'vertical')
-                embedded_content = BoxLayout(orientation = 'horizontal')
-                embedded_content1 = BoxLayout(orientation = 'horizontal')
-                image1 = Image(source='chess-pieces/white/knight1.png')
-                image2 = Image(source='chess-pieces/white/bishop1.png')
-                image3 = Image(source='chess-pieces/white/rook1.png')
-                image4 = Image(source='chess-pieces/white/queen1.png')
-                embedded_content.add_widget(image1)
-                embedded_content.add_widget(image2)
-                content.orientation = "vertical"
-                embedded_content1.add_widget(image3)
-                embedded_content1.add_widget(image4)
-                content.add_widget(embedded_content)
-                content.add_widget(embedded_content1)
-                popup = Popup(title = "Promotion",content=content,
-                        size_hint=(None, None), size=(200, 200))
-                popup.open()
-                print("promotion detected")
+                self.popup_promotion(self.current_board, self.up_square[2])
+
+    def popup_promotion(self,board,square):
+        out = "QUEEN"
+        content = BoxLayout(orientation = 'vertical')
+        embedded_content = BoxLayout(orientation = 'horizontal')
+        embedded_content1 = BoxLayout(orientation = 'horizontal')
+        image1 = Button(background_normal='chess-pieces/white/knight1.png',size=(10,10))
+        image2 = Button(background_normal='chess-pieces/white/bishop1.png')
+        image3 = Button(background_normal='chess-pieces/white/rook1.png')
+        image4 = Button(background_normal='chess-pieces/white/queen1.png')
+        embedded_content.add_widget(image1)
+        embedded_content.add_widget(image2)
+        content.orientation = "vertical"
+        embedded_content1.add_widget(image3)
+        embedded_content1.add_widget(image4)
+        content.add_widget(embedded_content)
+        content.add_widget(embedded_content1)
+        popup = Popup(title = "Promotion",content=content,
+                size_hint=(None, None), size=(150, 175))
+        content.bind(on_press=popup.dismiss)
+        image1.bind(on_press = lambda x : self.popup_button(board,square,"KNIGHT"),on_release=popup.dismiss)
+        image2.bind(on_press = lambda x : self.popup_button(board,square,"BISHOP"),on_release=popup.dismiss)
+        image3.bind(on_press = lambda x : self.popup_button(board,square,"ROOK"),on_release=popup.dismiss)
+        image4.bind(on_press = lambda x : self.popup_button(board,square,"QUEEN"),on_release=popup.dismiss)
+        popup.open()
+
+    def popup_button(self,board,square,piece):
+        board.set_piece(square,piece,board.color_arr[square])
+        self.sync(self.current_board)
 
     def sync(self,board):
         self.current_board = board
