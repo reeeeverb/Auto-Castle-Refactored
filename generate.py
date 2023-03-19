@@ -421,10 +421,10 @@ def in_check(square,board,detail=False):
                     return temp_pos
         return -1
 
-def target_square(board,squares,king,color):
+def checkmate(board,squares,king,color):
     king_moves = moves(king,board)
     for l in king_moves:
-        test_board = copy.copy(board)
+        test_board = copy.deepcopy(board)
         test_board.clear_square(king)
         test_board.set_piece(l,"KING",color)
         if in_check(l,test_board) == -1:
@@ -434,6 +434,5 @@ def target_square(board,squares,king,color):
             temp_loc = moves(x,board)
             for square in squares:
                 if square in temp_loc:
-                    print(board.piece_arr[x],x)
                     return True
     return False

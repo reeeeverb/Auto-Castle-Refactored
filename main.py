@@ -132,6 +132,8 @@ class Chessboard(Widget):
         self.clear_widgets()
         for square, piece in enumerate(board.piece_arr):
             self.add_piece(piece,board.color_arr[square],square)
+        if board.winner != -1:
+            print("AND THE WINNER IS: ", board.winner)
 
 if __name__ == '__main__':
     ChessApp().run()

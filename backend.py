@@ -18,6 +18,7 @@ class board():
     b_king_castle = True
     w_king_location = None
     b_king_location = None
+    winner = -1
     move = 0
 
     def reset_board(self):
@@ -129,8 +130,6 @@ class board():
         if self.current_move == "WHITE":
             check_pos = generate.in_check(self.w_king_location,self) 
             if check_pos != -1:  
-                if not generate.target_square(self,check_pos,self.w_king_location,color):
-                    print("CM")
                 self.color_arr = t_color_arr
                 self.piece_arr = t_piece_arr
                 self.forward = t_forward
@@ -148,6 +147,9 @@ class board():
             else:
                 self.move += 1
                 self.current_move = "BLACK"
+                check_pos = generate.in_check(self.b_king_location,self) 
+                if check_pos != -1 and not generate.checkmate(self,check_pos,self.b_king_location,"BLACK"):
+                    self.winner = "WHITE"
                 if promotion:
                     return up_square
         elif self.current_move == "BLACK":
@@ -170,5 +172,8 @@ class board():
             else:
                 self.move += 1
                 self.current_move = "WHITE"
+                check_pos = generate.in_check(self.w_king_location,self) 
+                if check_pos != -1 and not generate.checkmate(self,check_pos,self.w_king_location,"WHITE"):
+                    self.winner = "BLACK"
                 if promotion:
                     return up_square
