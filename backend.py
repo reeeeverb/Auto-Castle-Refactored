@@ -34,6 +34,10 @@ class board():
     def set_piece(self,square,piece,color):
         self.color_arr[square] = color
         self.piece_arr[square] = piece
+
+    def clear_square(self,square):
+        self.color_arr[square] = "EMPTY"
+        self.piece_arr[square] = "EMPTY"
     
     def move_piece(self,down_square,up_square):
         t_color_arr = copy.copy(self.color_arr)
@@ -52,7 +56,7 @@ class board():
         t_b_king_location = copy.copy(self.b_king_location)
             
         piece = self.piece_arr[down_square]
-        if piece == "NOTHING":
+        if piece == "EMPTY":
             return;
         color = self.color_arr[down_square]
         if color != self.current_move:
@@ -67,9 +71,15 @@ class board():
         self.b_en_passantable = None
         promotion = False
         if piece == "KING":
+            if abs(up_square - down_square) == 2:
+                sign = (down_square-up_square)//2
+                new_s = up_square+sign
+                if up_square < 3:
+                    self.clear_square(up_square-sign)
+                else:
+                    self.clear_square(up_square-(2*sign))
+                self.set_piece(new_s,"ROOK",color)
             if color == "WHITE":
-                if up_square - down_square > 1:
-                    self.set_piece()
                 self.w_king_location = up_square
                 self.w_queen_castle = False
                 self.w_king_castle = False
