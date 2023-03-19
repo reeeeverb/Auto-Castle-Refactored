@@ -126,38 +126,49 @@ class board():
         self.piece_arr[down_square] = "EMPTY"
         self.color_arr[up_square] = color
         self.piece_arr[up_square] = piece
-        if self.current_move == "WHITE" and generate.in_check(self.w_king_location,self):
-            self.color_arr = t_color_arr
-            self.piece_arr = t_piece_arr
-            self.forward = t_forward
-            self.current_move = t_current_move
-            self.w_en_passantable = t_w_en_passantable
-            self.b_en_passantable = t_b_en_passantable
-            self.w_en_passantable_s = t_w_en_passantable_s
-            self.b_en_passantable_s = t_b_en_passantable_s
-            self.w_queen_castle =  t_w_queen_castle
-            self.w_king_castle = t_w_king_castle
-            self.b_queen_castle = t_b_queen_castle
-            self.b_king_castle = t_b_king_castle
-            self.w_king_location = t_w_king_location
-            self.b_king_location = t_b_king_location
-        elif self.current_move == "BLACK" and generate.in_check(self.b_king_location,self):
-            self.color_arr = t_color_arr
-            self.piece_arr = t_piece_arr
-            self.forward = t_forward
-            self.current_move = t_current_move
-            self.w_en_passantable = t_w_en_passantable
-            self.b_en_passantable = t_b_en_passantable
-            self.w_en_passantable_s = t_w_en_passantable_s
-            self.b_en_passantable_s = t_b_en_passantable_s
-            self.w_queen_castle =  t_w_queen_castle
-            self.w_king_castle = t_w_king_castle
-            self.b_queen_castle = t_b_queen_castle
-            self.b_king_castle = t_b_king_castle
-            self.w_king_location = t_w_king_location
-            self.b_king_location = t_b_king_location
-        else:
-            self.move += 1
-            self.current_move = "WHITE" if color == "BLACK" else "BLACK"
-            if promotion:
-                return up_square
+        if self.current_move == "WHITE":
+            check_pos = generate.in_check(self.w_king_location,self) 
+            if check_pos != -1:  
+                if not generate.target_square(self,check_pos,color):
+                    print("CM")
+                self.color_arr = t_color_arr
+                self.piece_arr = t_piece_arr
+                self.forward = t_forward
+                self.current_move = t_current_move
+                self.w_en_passantable = t_w_en_passantable
+                self.b_en_passantable = t_b_en_passantable
+                self.w_en_passantable_s = t_w_en_passantable_s
+                self.b_en_passantable_s = t_b_en_passantable_s
+                self.w_queen_castle =  t_w_queen_castle
+                self.w_king_castle = t_w_king_castle
+                self.b_queen_castle = t_b_queen_castle
+                self.b_king_castle = t_b_king_castle
+                self.w_king_location = t_w_king_location
+                self.b_king_location = t_b_king_location
+            else:
+                self.move += 1
+                self.current_move = "BLACK"
+                if promotion:
+                    return up_square
+        elif self.current_move == "BLACK":
+            check_pos = generate.in_check(self.b_king_location,self) 
+            if check_pos != -1:
+                self.color_arr = t_color_arr
+                self.piece_arr = t_piece_arr
+                self.forward = t_forward
+                self.current_move = t_current_move
+                self.w_en_passantable = t_w_en_passantable
+                self.b_en_passantable = t_b_en_passantable
+                self.w_en_passantable_s = t_w_en_passantable_s
+                self.b_en_passantable_s = t_b_en_passantable_s
+                self.w_queen_castle =  t_w_queen_castle
+                self.w_king_castle = t_w_king_castle
+                self.b_queen_castle = t_b_queen_castle
+                self.b_king_castle = t_b_king_castle
+                self.w_king_location = t_w_king_location
+                self.b_king_location = t_b_king_location
+            else:
+                self.move += 1
+                self.current_move = "WHITE"
+                if promotion:
+                    return up_square
