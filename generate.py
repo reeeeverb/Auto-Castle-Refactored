@@ -434,5 +434,9 @@ def checkmate(board,squares,king,color):
             temp_loc = moves(x,board)
             for square in squares:
                 if square in temp_loc:
-                    return True
+                    test_board = copy.deepcopy(board)
+                    test_board.clear_square(x)
+                    test_board.set_piece(square,board.piece_arr[x],color)
+                    if in_check(l,test_board) == -1:
+                        return True
     return False

@@ -75,7 +75,7 @@ class Chessboard(Widget):
             gui_board.reset_board()
             self.sync(gui_board)
             return
-        if not self.collide_point(*touch.pos):
+        if self.current_board.winner != -1 or not self.collide_point(*touch.pos):
             return
         xpos = touch.pos[0]-self.pos[0]
         ypos = touch.pos[1]-self.pos[1]
@@ -85,7 +85,7 @@ class Chessboard(Widget):
                 self.remove_widget(widget)
 
     def on_touch_up(self,touch):
-        if not self.collide_point(*touch.pos):
+        if self.current_board.winner != -1 or not self.collide_point(*touch.pos):
             return
         xpos = touch.pos[0]-self.pos[0]
         ypos = touch.pos[1]-self.pos[1]
