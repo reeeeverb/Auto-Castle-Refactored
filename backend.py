@@ -129,7 +129,7 @@ class board():
         if self.current_move == "WHITE":
             check_pos = generate.in_check(self.w_king_location,self) 
             if check_pos != -1:  
-                if not generate.target_square(self,check_pos,color):
+                if not generate.target_square(self,check_pos,self.w_king_location,color):
                     print("CM")
                 self.color_arr = t_color_arr
                 self.piece_arr = t_piece_arr

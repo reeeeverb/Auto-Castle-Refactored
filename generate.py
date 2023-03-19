@@ -1,3 +1,4 @@
+import copy
 def moves(square,board):
     piece_arr = board.piece_arr
     color_arr = board.color_arr
@@ -420,10 +421,16 @@ def in_check(square,board,detail=False):
                     return temp_pos
         return -1
 
-def target_square(board,squares,color):
-    print(squares)
+def target_square(board,squares,king,color):
+    king_moves = moves(king,board)
+    for l in king_moves:
+        test_board = copy.copy(board)
+        test_board.clear_square(king)
+        test_board.set_piece(l,"KING",color)
+        if in_check(l,test_board) == -1:
+            return True
     for x,s in enumerate(board.color_arr):
-        if s == color and board.piece_arr[s] != "KING":
+        if s == color and board.piece_arr[x] != "KING":
             temp_loc = moves(x,board)
             for square in squares:
                 if square in temp_loc:
