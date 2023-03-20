@@ -1,16 +1,21 @@
 # Auto-Castle
 
 ## Chessboard TODO:
-- Recreate to allow for programmatic adding of widgets(pieces)
-  - Just king now 
-- Implement pawn promotion
-  - need a fancy lil mini gui
-- Check, checkmate, etc
-  - Checkmate still needed
-    - legal moves array?
-  - Check from other kings
 - Stalemate
 - Timers
+
+## Engine notes:
+
+#### Evaulation
+- Evalutation has 2 main methods 
+  - hand-crafted
+    - start with this one 
+  - neural networks
+    - circle back to implement at a later date
+
+#### Hand Crafted Evalution 
+- **Negamax** is minimax but each side is capable of being scored
+
 
 ## What We Learned from Previous Implementation
 - seperate the GUI from the backend
