@@ -9,9 +9,9 @@
 #### Evaulation
 - Evalutation has 2 main methods 
   - hand-crafted
-    - start with this one 
   - neural networks
-    - circle back to implement at a later date
+    - only one really in use these days
+    - start with this one 
 
 #### Hand Crafted Evalution 
 - **Negamax** is minimax but each side is capable of being scored
