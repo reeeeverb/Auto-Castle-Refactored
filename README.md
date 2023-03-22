@@ -16,6 +16,12 @@
 #### Hand Crafted Evalution 
 - **Negamax** is minimax but each side is capable of being scored
 
+#### NN Evaluation 
+- the hard part is ofc evalution, after that is just finding the largest value as fast as possible
+  - prob using a MC algo bc its cool
+- do a little *self play reinforcement learning*
+  - I have no idea how to implement that although I suspect it will involve python
+
 
 ## What We Learned from Previous Implementation
 - seperate the GUI from the backend
