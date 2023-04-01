@@ -148,7 +148,7 @@ class board():
                 self.move += 1
                 self.current_move = "BLACK"
                 check_pos = generate.in_check(self.b_king_location,self) 
-                if check_pos != -1 and not generate.checkmate(self,check_pos,self.b_king_location,"BLACK"):
+                if check_pos != -1 and generate.checkmate(self,check_pos,self.b_king_location,"BLACK"):
                     self.winner = "WHITE"
                 if promotion:
                     return up_square
@@ -173,7 +173,7 @@ class board():
                 self.move += 1
                 self.current_move = "WHITE"
                 check_pos = generate.in_check(self.w_king_location,self) 
-                if check_pos != -1 and not generate.checkmate(self,check_pos,self.w_king_location,"WHITE"):
+                if check_pos != -1 and generate.checkmate(self,check_pos,self.w_king_location,"WHITE"):
                     self.winner = "BLACK"
                 if promotion:
                     return up_square

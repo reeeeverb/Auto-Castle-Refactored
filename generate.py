@@ -428,7 +428,7 @@ def checkmate(board,squares,king,color):
         test_board.clear_square(king)
         test_board.set_piece(l,"KING",color)
         if in_check(l,test_board) == -1:
-            return True
+            return False
     for x,s in enumerate(board.color_arr):
         if s == color and board.piece_arr[x] != "KING":
             temp_loc = moves(x,board)
@@ -438,5 +438,5 @@ def checkmate(board,squares,king,color):
                     test_board.clear_square(x)
                     test_board.set_piece(square,board.piece_arr[x],color)
                     if in_check(l,test_board) == -1:
-                        return True
-    return False
+                        return False
+    return True

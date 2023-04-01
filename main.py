@@ -1,4 +1,6 @@
 import math
+import time
+import sys
 from kivy.app import App
 from kivy.uix.popup import Popup
 from kivy.uix.boxlayout import BoxLayout
@@ -12,6 +14,8 @@ from kivy.graphics import Rectangle
 from kivy.uix.button import Button
 from kivy.lang.builder import Builder
 import backend, presets, piece, generate
+sys.path.append("AI")
+import minmax
 
 class ChessGame(Widget):
     s_width = NumericProperty(Window.width)
@@ -70,6 +74,12 @@ class Chessboard(Widget):
         temp.set(position)
 
     def on_touch_down(self, touch):
+        if touch.button == "right":
+            t0 = time.time()
+            minmax.evaluate(self.current_board)
+            t1 = time.time()
+            print("-------------- RUNTIME ----------",t1-t0)
+            return 
         if self.children == []:
             gui_board = backend.board()
             gui_board.reset_board()
@@ -137,4 +147,3 @@ class Chessboard(Widget):
 
 if __name__ == '__main__':
     ChessApp().run()
-
