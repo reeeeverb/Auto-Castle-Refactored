@@ -2,6 +2,8 @@ import math
 import time
 import sys
 from kivy.app import App
+from kivy.config import Config
+Config.set('input', 'mouse', 'mouse,multitouch_on_demand')
 from kivy.uix.popup import Popup
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.label import Label
@@ -76,9 +78,10 @@ class Chessboard(Widget):
     def on_touch_down(self, touch):
         if touch.button == "right":
             t0 = time.time()
-            minmax.evaluate(self.current_board)
+            result_board = minmax.play_random(self.current_board)
             t1 = time.time()
             print("-------------- RUNTIME ----------",t1-t0)
+            self.sync(result_board)
             return 
         if self.children == []:
             gui_board = backend.board()

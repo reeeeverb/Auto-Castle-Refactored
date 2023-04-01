@@ -1,4 +1,5 @@
 import copy
+import random
 import generate
 import main
 from kivy.app import App
@@ -27,6 +28,17 @@ def evaluate(board,depth=SEARCH_DEPTH,count=1):
                 elif depth > 1:
                     print(depth)
                     evaluate(test_board,depth-1,count+1)
+
+def play_random(board):
+    app = App.get_running_app()
+    piece_temp_arr = []
+    for x,c in enumerate(board.color_arr):
+        if c == board.current_move:
+            piece_temp_arr+=[(x,s) for s in generate.moves(x,board)]
+    rand_num = random.randint(0,len(piece_temp_arr)-1)
+    soi = piece_temp_arr[rand_num]
+    board.move_piece(soi[0],soi[1])
+    return(board)
 
 def decode(square):
     return str(chr(65+square//8))+ str(square%8)
