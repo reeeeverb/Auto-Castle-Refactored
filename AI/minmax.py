@@ -31,10 +31,20 @@ def evaluate(board,depth=SEARCH_DEPTH,count=1):
 
 def play_random(board):
     app = App.get_running_app()
+    if board.current_move == "BLACK":
+        king_loc = board.b_king_location
+    elif board.current_move == "WHITE":
+        king_loc = board.w_king_location
+    check_pos = generate.in_check(king_loc,board)
     piece_temp_arr = []
     for x,c in enumerate(board.color_arr):
         if c == board.current_move:
-            piece_temp_arr+=[(x,s) for s in generate.moves(x,board)]
+            if check_pos == -1:
+                piece_temp_arr+=[(x,s) for s in generate.moves(x,board)]
+            else:
+                for s in generate.moves(x,board):
+                    if in_check_move_legal(board,x,s,board.current_move):
+                        piece_temp_arr.append((x,s))
     rand_num = random.randint(0,len(piece_temp_arr)-1)
     soi = piece_temp_arr[rand_num]
     board.move_piece(soi[0],soi[1])
@@ -42,3 +52,16 @@ def play_random(board):
 
 def decode(square):
     return str(chr(65+square//8))+ str(square%8)
+
+def in_check_move_legal(board,up_square,down_square,color):
+    if board.piece_arr[up_square] == "KING":
+        king = down_square
+    elif color == "WHITE":
+        king = board.w_king_location
+    elif color == "BLACK":
+        king = board.b_king_location
+    test_board = copy.deepcopy(board)
+    test_board.clear_square(up_square)
+    test_board.set_piece(down_square,board.piece_arr[up_square],color)
+    if generate.in_check(king,test_board) == -1:
+        return True
