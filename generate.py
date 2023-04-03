@@ -298,7 +298,7 @@ def in_check(square,board,detail=False):
 
         # From diagonal top left check
         if king_row < 7 and king_col > 0:
-            temp_count = 0
+            temp_count = 1
             temp_row = king_row+1
             temp_col = king_col-1
             temp_pos = temp_row*8+temp_col
@@ -315,12 +315,12 @@ def in_check(square,board,detail=False):
             if (hit_c == "BLACK" and white == 1) or (hit_c == "WHITE" and white == 0):
                 if (hit_p == "BISHOP" or hit_p == "QUEEN"):
                     return temp_out
-                elif (temp_count == 1 and (hit_p == "PAWN" or hit_p == "KING") and board.forward == hit_c):
+                elif (temp_count == 1 and (hit_p == "PAWN" or hit_p == "KING") and board.forward != hit_c):
                     return temp_out
 
         # From diagonal bottom right check
         if king_row > 0 and king_col < 7:
-            temp_count = 0
+            temp_count = 1
             temp_row = king_row-1
             temp_col = king_col+1
             temp_pos = temp_row*8+temp_col
@@ -341,7 +341,7 @@ def in_check(square,board,detail=False):
 
         # From diagonal bottom left check
         if king_row > 0 and king_col > 0:
-            temp_count = 0
+            temp_count = 1
             temp_row = king_row-1
             temp_col = king_col-1
             temp_pos = temp_row*8+temp_col
