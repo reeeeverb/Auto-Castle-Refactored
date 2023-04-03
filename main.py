@@ -78,7 +78,8 @@ class Chessboard(Widget):
     def on_touch_down(self, touch):
         if touch.button == "right":
             t0 = time.time()
-            result_board = minmax.play_random(self.current_board)
+            #result_board = minmax.play_random(self.current_board)
+            result_board = minmax.play_capture(self.current_board)
             t1 = time.time()
             print("-------------- RUNTIME ----------",t1-t0)
             self.sync(result_board)
