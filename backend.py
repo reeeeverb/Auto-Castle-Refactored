@@ -26,8 +26,8 @@ class board():
         self.set_board(new_board_w_piece,new_board_w_color)
         self.queen_castle = True
         self.king_castle = True
-        self.w_king_location = 3
-        self.b_king_location = 59
+        self.w_king_location = 4
+        self.b_king_location = 60
         self.pgn = "" 
 
     def set_board(self,loc,col):
