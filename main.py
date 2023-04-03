@@ -19,6 +19,8 @@ import backend, presets, piece, generate
 sys.path.append("AI")
 import minmax
 
+PGN_FILE = "pgn_out.txt"
+
 class ChessGame(Widget):
     s_width = NumericProperty(Window.width)
     s_height = NumericProperty(Window.height)
@@ -148,6 +150,13 @@ class Chessboard(Widget):
             self.add_piece(piece,board.color_arr[square],square)
         if board.winner != -1:
             print("AND THE WINNER IS: ", board.winner)
+            write_pgn(board.pgn)
 
 if __name__ == '__main__':
     ChessApp().run()
+
+def write_pgn(pgn):
+    f = open(PGN_FILE,"w")
+    f.write(pgn)
+    f.close()
+    return

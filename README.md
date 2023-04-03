@@ -3,6 +3,7 @@
 ## Chessboard TODO:
 - Stalemate
 - Timers
+- Logs with PGN files
 
 ## Engine notes:
 
