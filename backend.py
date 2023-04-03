@@ -198,4 +198,4 @@ class board():
                     return up_square
 
 def decode(square):
-    return str(chr(97+square//8))+ str(square%8)
+    return str(chr(97+square%8))+ str(square//8+1)
