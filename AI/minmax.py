@@ -55,15 +55,31 @@ def play_capture(board):
     piece_temp_arr = []
     capture_move_arr = []
     highest_capture = 0
+    if board.current_move == "BLACK":
+        king_loc = board.b_king_location
+    elif board.current_move == "WHITE":
+        king_loc = board.w_king_location
+    check_pos = generate.in_check(king_loc,board)
     for x,c in enumerate(board.color_arr):
         if c == board.current_move:
-            for s in generate.moves(x,board):
-                piece_temp_arr.append((x,s))
-                if move_include_capture(board,s) > highest_capture:
-                    capture_move_arr = []
-                    capture_move_arr.append((x,s))
-                elif move_include_capture(board,s) == highest_capture:
-                    capture_move_arr.append((x,s))
+            if check_pos == -1:
+                for s in generate.moves(x,board):
+                    piece_temp_arr.append((x,s))
+                    if move_include_capture(board,s) > highest_capture:
+                        capture_move_arr = []
+                        capture_move_arr.append((x,s))
+                    elif move_include_capture(board,s) == highest_capture:
+                        capture_move_arr.append((x,s))
+            else:
+                for s in generate.moves(x,board):
+                    if in_check_move_legal(board,x,s,board.current_move):
+                        piece_temp_arr.append((x,s))
+                        if move_include_capture(board,s) > highest_capture:
+                            capture_move_arr = []
+                            capture_move_arr.append((x,s))
+                        elif move_include_capture(board,s) == highest_capture:
+                            capture_move_arr.append((x,s))
+
     if len(capture_move_arr) > 0:
         rand_num = random.randint(0,len(capture_move_arr)-1)
         soi = capture_move_arr[rand_num]
