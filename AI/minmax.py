@@ -80,10 +80,13 @@ def play_capture(board,value=False):
                         piece_temp_arr.append((x,s))
                         if move_include_capture(board,s) > highest_capture:
                             highest_capture = move_include_capture(board,s)
+                            piece_temp_arr.append(capture_move_arr)
                             capture_move_arr = []
                             capture_move_arr.append((x,s))
+                            piece_temp_arr.pop()
                         elif move_include_capture(board,s) == highest_capture:
                             capture_move_arr.append((x,s))
+                            piece_temp_arr.pop()
 
     soi = None
     if len(capture_move_arr) > 0:
@@ -94,15 +97,17 @@ def play_capture(board,value=False):
             sim_board.move_piece(capture_move_arr[i][0],capture_move_arr[i][1])
             recapture_value = play_capture(sim_board,True)
             if (highest_capture - recapture_value) >= recap_diff:
-                print("HIGHEST CAPTURE: ",highest_capture,"RECAP VALUE:",recapture_value)
+                if not value:
+                    print("HIGHEST CAPTURE: ",highest_capture,"RECAP VALUE:",recapture_value)
                 recap_diff = highest_capture-recapture_value
                 soi = capture_move_arr[i]
     if soi == None:
+        recap_diff = 0
         rand_num = random.randint(0,len(piece_temp_arr)-1)
         soi = piece_temp_arr[rand_num]
     board.move_piece(soi[0],soi[1])
     if value:
-        return highest_capture
+        return recap_diff
     return(board)
 
 def lookahead_capture(board):
