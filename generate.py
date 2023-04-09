@@ -201,11 +201,14 @@ def in_check(square,board,detail=False):
         piece = board.piece_arr
 
         out = []
+        print(piece.index("KING"))
 
         if color[square] == "WHITE":
             white = 1
         elif color[square] == "BLACK":
             white = 0
+        else:
+            print(square)
 
         king_row = square//8
         king_col = square%8

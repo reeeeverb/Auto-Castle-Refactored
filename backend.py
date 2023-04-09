@@ -36,6 +36,12 @@ class board():
 
     def set_piece(self,square,piece,color):
         self.color_arr[square] = color
+        if piece == "KING":
+            print("hit")
+            if color == "WHITE":
+                self.w_king_location = square
+            else:
+                self.b_king_location = square
         self.piece_arr[square] = piece
 
     def clear_square(self,square):

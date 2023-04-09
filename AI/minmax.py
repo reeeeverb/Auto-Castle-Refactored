@@ -51,7 +51,7 @@ def play_random(board):
     board.move_piece(soi[0],soi[1])
     return(board)
 
-def play_capture(board,value=False):
+def play_capture(board,value=False,depth=0):
     piece_temp_arr = []
     capture_move_arr = []
     highest_capture = 0
@@ -95,7 +95,11 @@ def play_capture(board,value=False):
         for i in range(len(capture_move_arr)):
             sim_board = copy.deepcopy(board)
             sim_board.move_piece(capture_move_arr[i][0],capture_move_arr[i][1])
-            recapture_value = play_capture(sim_board,True)
+            if depth < SEARCH_DEPTH:
+                depth_inc = depth + 1
+                recapture_value = play_capture(sim_board,True,depth_inc)
+            else:
+                recapture_value = 0
             if (highest_capture - recapture_value) >= recap_diff:
                 if not value:
                     print("HIGHEST CAPTURE: ",highest_capture,"RECAP VALUE:",recapture_value)
@@ -103,6 +107,19 @@ def play_capture(board,value=False):
                 soi = capture_move_arr[i]
     if soi == None:
         recap_diff = 0
+        for i in range(len(piece_temp_arr)):
+            sim_board = copy.deepcopy(board)
+            sim_board.move_piece(piece_temp_arr[i][0],piece_temp_arr[i][1])
+            if depth < SEARCH_DEPTH:
+                depth_inc = depth + 1
+                recapture_value = play_capture(sim_board,True,depth_inc)
+            else:
+                recapture_value = 0
+            if (highest_capture - recapture_value) >= recap_diff:
+                if not value:
+                    print("HIGHEST CAPTURE: ",highest_capture,"RECAP VALUE:",recapture_value)
+                recap_diff = highest_capture-recapture_value
+                soi = piece_temp_arr[i]
         rand_num = random.randint(0,len(piece_temp_arr)-1)
         soi = piece_temp_arr[rand_num]
     board.move_piece(soi[0],soi[1])
